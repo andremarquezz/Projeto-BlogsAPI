@@ -1,5 +1,11 @@
-// const userServices = {
-//   addUser: async ({ displayName, email, password, image }) => true,
-// };
+const { User } = require('../database/models');
+require('express-async-errors');
 
-// module.exports = userServices;
+const userServices = {
+  addUser: async ({ displayName, email, password, image }) => {
+    await User.create({ displayName, email, password, image });
+    return true;
+  },
+};
+
+module.exports = userServices;
