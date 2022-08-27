@@ -31,10 +31,10 @@ const checkUserExists = async (email) => {
 };
 
 const validateInfoRegistration = async (req, _res, next) => {
-  await checkUserExists(req.body.email);
   const validate = schemaRegistration.validate(req.body);
   const { error } = validate;
   if (error) handleError(error);
+  await checkUserExists(req.body.email);
   next();
 };
 
