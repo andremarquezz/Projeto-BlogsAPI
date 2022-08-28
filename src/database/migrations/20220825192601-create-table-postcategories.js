@@ -2,26 +2,32 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('PostCategories', {
-      postId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'BlogPosts',
-          key: 'id',
+    await queryInterface.createTable(
+      'PostCategories',
+      {
+        postId: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'BlogPosts',
+            key: 'id',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      categoryId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Categories',
-          key: 'id',
+        categoryId: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'Categories',
+            key: 'id',
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
-    });
+      {
+        timestamps: false,
+      }
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
