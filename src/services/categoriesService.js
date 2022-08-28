@@ -8,6 +8,10 @@ const categoriesService = {
     const { dataValues } = await Category.create({ name });
     return dataValues;
   },
+  getAll: async () => {
+    const categories = await Category.findAll();
+    return categories;
+  },
 };
 
 module.exports = categoriesService;
