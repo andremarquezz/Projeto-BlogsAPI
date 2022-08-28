@@ -8,5 +8,9 @@ const userController = {
     const token = await loginService.generateToken(email);
     res.status(201).json({ token });
   },
+  getAll: async (_req, res) => {
+    const users = await userServices.getAll();
+    res.status(200).json(users);
+  },
 };
 module.exports = userController;
