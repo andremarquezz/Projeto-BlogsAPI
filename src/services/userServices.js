@@ -1,5 +1,6 @@
 const { User } = require('../database/models');
 require('express-async-errors');
+const { ErrorNotFound } = require('../errors/ErrorNotFound');
 
 const userServices = {
   addUser: async ({ displayName, email, password, image }) => {
@@ -11,6 +12,13 @@ const userServices = {
       attributes: { exclude: ['password'] },
     });
     return users;
+  },
+  getOne: async (id) => {
+    const user = await User.findByPk(id, {
+      attributes: { exclude: ['password'] },
+    });
+    if (!user) throw new ErrorNotFound('User does not exist');
+    return user;
   },
 };
 

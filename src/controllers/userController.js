@@ -12,5 +12,10 @@ const userController = {
     const users = await userServices.getAll();
     res.status(200).json(users);
   },
+  getOne: async (req, res) => {
+    const { id } = req.params;
+    const user = await userServices.getOne(id);
+    res.status(200).json(user);
+  },
 };
 module.exports = userController;
