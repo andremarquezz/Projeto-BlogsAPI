@@ -11,8 +11,11 @@ const blogPostController = {
       userId,
       categoryIds,
     });
-    console.log(post, 'controller');
     return res.status(201).json(post);
+  },
+  getAll: async (req, res) => {
+    const posts = await blogPostService.getAll();
+    return res.status(200).json(posts);
   },
 };
 

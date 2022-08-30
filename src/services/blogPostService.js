@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { BlogPost, PostCategory, User } = require('../database/models');
+const { BlogPost, PostCategory, User, Category } = require('../database/models');
 const { ErrorInternalServer } = require('../errors/ErrorInternalServer');
 const config = require('../database/config/config');
 
@@ -25,6 +25,24 @@ const blogPostService = {
   //   if (!dataValues) throw new ErrorNotFound('Post não encontrado');
   //   return dataValues;
   // },
+
+  getAll: async () => {
+    const posts = await BlogPost.findAll({
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+    });
+    return posts;
+  },
   addInIntermediateTable: async (postId, categoryIds, transaction) => {
     try {
       await Promise.all(
