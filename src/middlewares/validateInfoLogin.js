@@ -5,7 +5,7 @@ const loginService = require('../services/loginServices');
 const validateInfoLogin = async (req, _res, next) => {
   const { email, password } = req.body;
   if (!email || !password) throw new ErrorBadRequest('Some required fields are missing');
-  await loginService.validateUser(email, password);
+  await loginService.findUser(email, password);
   next();
 };
 

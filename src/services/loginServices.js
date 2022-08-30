@@ -11,7 +11,7 @@ const jwtConfig = {
 };
 
 const loginService = {
-  validateUser: async (email, password) => {
+  findUser: async (email, password) => {
     const user = await User.findOne({ where: { email, password } });
     if (!user) throw new ErrorBadRequest('Invalid fields');
     return true;
