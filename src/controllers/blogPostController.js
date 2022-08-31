@@ -22,6 +22,11 @@ const blogPostController = {
     const post = await blogPostService.findOne(id);
     return res.status(200).json(post);
   },
+  postByTerm: async (req, res) => {
+    const { q: term } = req.query;
+    const posts = await blogPostService.postByTerm(term);
+    return res.status(200).json(posts);
+  },
   editBlogPost: async (req, res) => {
     const { title, content } = req.body;
     const { id } = req.params;
@@ -32,7 +37,7 @@ const blogPostController = {
   delBlogPost: async (req, res) => {
     const { id } = req.params;
     const { email } = res.locals;
-    await blogPostService.editBlogPost({ id, email });
+    await blogPostService.delBlogPost({ id, email });
     return res.status(204).end();
   },
 };

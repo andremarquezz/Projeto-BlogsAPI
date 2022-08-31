@@ -2,8 +2,10 @@ const Sequelize = require('sequelize');
 const { BlogPost, PostCategory, User, Category } = require('../database/models');
 const { ErrorInternalServer } = require('../errors/ErrorInternalServer');
 const config = require('../database/config/config');
+require('express-async-errors');
 
 const sequelize = new Sequelize(config.development);
+const { Op } = Sequelize;
 
 const { ErrorNotFound } = require('../errors/ErrorNotFound');
 const { ErrorUnauthorized } = require('../errors/ErrorUnauthorized');
@@ -50,6 +52,26 @@ const blogPostService = {
     });
     if (!response) throw new ErrorNotFound('Post does not exist');
     return response.dataValues;
+  },
+  postByTerm: async (term) => {
+    const response = await BlogPost.findAll({
+      where: {
+        title: { [Op.like]: `%${term}%` },
+        content: { [Op.like]: `%${term}%` },
+      },
+      include: [{
+          model: User,
+          as: 'user',
+          attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+    });
+    return response;
   },
 
   addInIntermediateTable: async (postId, categoryIds, transaction) => {
