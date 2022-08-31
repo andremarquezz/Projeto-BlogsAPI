@@ -53,26 +53,23 @@ const blogPostService = {
     if (!response) throw new ErrorNotFound('Post does not exist');
     return response.dataValues;
   },
-  postByTerm: async (term) => {
-    const response = await BlogPost.findAll({
+  postByTerm: async (term) =>
+    BlogPost.findAll({
       where: {
-        title: { [Op.like]: `%${term}%` },
-        content: { [Op.like]: `%${term}%` },
+        [Op.or]: [
+          { title: { [Op.like]: `%${term}%` } },
+          { content: { [Op.like]: `%${term}%` } },
+        ],
       },
-      include: [{
+      include: [
+        {
           model: User,
           as: 'user',
           attributes: { exclude: ['password'] },
         },
-        {
-          model: Category,
-          as: 'categories',
-          through: { attributes: [] },
-        },
+        { model: Category, as: 'categories', through: { attributes: [] } },
       ],
-    });
-    return response;
-  },
+    }),
 
   addInIntermediateTable: async (postId, categoryIds, transaction) => {
     try {

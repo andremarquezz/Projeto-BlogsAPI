@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+
+publisher.sh
+trybe-filter-repo.sh
 # testing
 /coverage
 
