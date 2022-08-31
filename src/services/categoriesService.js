@@ -1,5 +1,4 @@
 const { Category } = require('../database/models');
-require('express-async-errors');
 const { ErrorBadRequest } = require('../errors/ErrorBadRequest');
 
 const categoriesService = {

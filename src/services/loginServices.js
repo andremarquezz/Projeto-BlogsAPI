@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-require('express-async-errors');
 const { ErrorBadRequest } = require('../errors/ErrorBadRequest');
 const { User } = require('../database/models');
 

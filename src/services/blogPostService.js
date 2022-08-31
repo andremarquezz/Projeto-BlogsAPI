@@ -8,7 +8,6 @@ const sequelize = new Sequelize(config.development);
 const { ErrorNotFound } = require('../errors/ErrorNotFound');
 const { ErrorUnauthorized } = require('../errors/ErrorUnauthorized');
 const { ErrorBadRequest } = require('../errors/ErrorBadRequest');
-require('express-async-errors');
 
 const blogPostService = {
   findUser: async (email) => {

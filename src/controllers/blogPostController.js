@@ -32,7 +32,7 @@ const blogPostController = {
   delBlogPost: async (req, res) => {
     const { id } = req.params;
     const { email } = res.locals;
-    await blogPostService.delBlogPost({ id, email });
+    await blogPostService.editBlogPost({ id, email });
     return res.status(204).end();
   },
 };
