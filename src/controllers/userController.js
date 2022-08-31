@@ -17,5 +17,10 @@ const userController = {
     const user = await userServices.getOne(id);
     res.status(200).json(user);
   },
+  deleteUser: async (_req, res) => {
+    const { email } = res.locals;
+    await userServices.deleteUser(email);
+    res.status(204).end();
+  },
 };
 module.exports = userController;

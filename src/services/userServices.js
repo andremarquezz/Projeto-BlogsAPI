@@ -1,6 +1,6 @@
 const { User } = require('../database/models');
-require('express-async-errors');
 const { ErrorNotFound } = require('../errors/ErrorNotFound');
+const blogPostService = require('./blogPostService');
 
 const userServices = {
   addUser: async ({ displayName, email, password, image }) => {
@@ -19,6 +19,13 @@ const userServices = {
     });
     if (!user) throw new ErrorNotFound('User does not exist');
     return user;
+  },
+  deleteUser: async (email) => {
+    const { id } = await blogPostService.findUser(email);
+    await User.destroy({
+      where: { id },
+    });
+    return true;
   },
 };
 
