@@ -13,9 +13,14 @@ const blogPostController = {
     });
     return res.status(201).json(post);
   },
-  getAll: async (req, res) => {
+  getAll: async (_req, res) => {
     const posts = await blogPostService.getAll();
     return res.status(200).json(posts);
+  },
+  getOne: async (req, res) => {
+    const { id } = req.params;
+    const post = await blogPostService.getOne(id);
+    return res.status(200).json(post);
   },
 };
 

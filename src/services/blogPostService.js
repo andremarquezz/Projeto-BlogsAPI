@@ -10,22 +10,10 @@ require('express-async-errors');
 
 const blogPostService = {
   findUser: async (email) => {
-    const { dataValues: user } = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
     if (!user) throw new ErrorNotFound('User não encontrado');
-    return user;
+    return user.dataValues;
   },
-  // findPost: async ({ title, content, userId }) => {
-  //   const { dataValues } = await BlogPost.findOne({
-  //     where: {
-  //       title,
-  //       content,
-  //       userId,
-  //     },
-  //   });
-  //   if (!dataValues) throw new ErrorNotFound('Post não encontrado');
-  //   return dataValues;
-  // },
-
   getAll: async () => {
     const posts = await BlogPost.findAll({
       include: [
@@ -43,6 +31,27 @@ const blogPostService = {
     });
     return posts;
   },
+  getOne: async (id) => {
+    const response = await BlogPost.findOne({
+      where: {
+        id,
+      },
+      include: [{
+          model: User,
+          as: 'user',
+          attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+    });
+    if (!response) throw new ErrorNotFound('Post does not exist');
+    return response.dataValues;
+  },
+
   addInIntermediateTable: async (postId, categoryIds, transaction) => {
     try {
       await Promise.all(
