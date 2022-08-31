@@ -100,6 +100,15 @@ const blogPostService = {
     const editedPost = await blogPostService.findOne(id);
     return editedPost;
   },
+  delBlogPost: async ({ id, email }) => {
+    const user = await blogPostService.findUser(email);
+    const post = await blogPostService.findOne(id);
+    if (post.userId !== user.id) throw new ErrorUnauthorized('Unauthorized user');
+    await BlogPost.destroy({
+      where: { id, userId: user.id },
+    });
+    return true;
+  },
 };
 
 module.exports = blogPostService;
