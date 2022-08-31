@@ -13,14 +13,21 @@ const blogPostController = {
     });
     return res.status(201).json(post);
   },
-  getAll: async (_req, res) => {
-    const posts = await blogPostService.getAll();
+  findAll: async (_req, res) => {
+    const posts = await blogPostService.findAll();
     return res.status(200).json(posts);
   },
-  getOne: async (req, res) => {
+  findOne: async (req, res) => {
     const { id } = req.params;
-    const post = await blogPostService.getOne(id);
+    const post = await blogPostService.findOne(id);
     return res.status(200).json(post);
+  },
+  editBlogPost: async (req, res) => {
+    const { title, content } = req.body;
+    const { id } = req.params;
+    const { email } = res.locals;
+    const editedPost = await blogPostService.editBlogPost({ title, content, id, email });
+    return res.status(200).json(editedPost);
   },
 };
 
