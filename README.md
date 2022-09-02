@@ -21,7 +21,7 @@
 
 ---
 
-<p>Esta API RESTful é para a produção de conteúdo para um blog em que é possível criar, visualizar, atualizar e deletar posts, a API foi desenvolvida dentro de containers docker utilizando um container Node.js e um container MySQL</p>
+<p>Desenvolvida durante o curso da Trybe esta API REST é para a produção de conteúdo para um blog em que é possível criar, visualizar, atualizar e deletar posts, a API foi desenvolvida dentro de containers docker utilizando um container Node.js e um container MySQL</p>
 
 ---
 
