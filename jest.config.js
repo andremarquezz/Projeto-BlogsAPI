@@ -1,6 +1,5 @@
 module.exports = {
-  rootDir: './tests',
-  testSequencer: './assets/sequencer.js',
-  testRegex: './*\\.test\\.js$',
+  testMatch: ['**/src/**/*.test.js'],
   testTimeout: 180000,
+  testEnvironment: 'node',
 };
