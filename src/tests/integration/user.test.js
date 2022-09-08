@@ -3,7 +3,7 @@ const app = require('../../api');
 const jwt = require('jsonwebtoken');
 const allUser = require('../assets/allUser.json');
 const userServices = require('../../services/userServices');
-import resetDatabase from './assets/resetDatabase';
+const resetDatabase = require('../assets/resetDataBase');
 
 describe('Testes no endpoint < /user >', () => {
   const jwtSpy = jest.spyOn(jwt, 'verify');
@@ -28,6 +28,19 @@ describe('Testes no endpoint < /user >', () => {
       expect(response.body.token).toBeDefined();
     });
     describe('Testa tratamento de erros no metodo < POST >', () => {
+      it('Testa se é o usuario já existir retorna code 409 e uma messagem de erro', async () => {
+        const response = await request(app).post('/user').send({
+          displayName: 'Michael Schumacher',
+          email: 'MichaelSchumacher@gmail.com',
+          password: '123456',
+          image:
+            'http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png',
+        });
+        expect(response.status).toBe(409);
+        expect(response.body).toEqual({
+          message: 'User already registered',
+        });
+      });
       it('Testa se displayName caso tenha menos que 8 caracteres retorna code 400 e uma messagem de erro ', async () => {
         const response = await request(app).post('/user').send({
           displayName: 'Brett',
@@ -104,6 +117,13 @@ describe('Testes no endpoint < /user >', () => {
         const response = await request(app).get('/user');
         expect(response.status).toBe(401);
         expect(response.body).toEqual({ message: 'Token not found' });
+      });
+      it('Testa se o id do usuario for invalido retorna code 404 e uma messagem de erro ', async () => {
+        const response = await request(app)
+          .get('/user/598')
+          .set({ authorization: token });
+        expect(response.status).toBe(404);
+        expect(response.body).toEqual({ message: 'User does not exist' });
       });
     });
   });

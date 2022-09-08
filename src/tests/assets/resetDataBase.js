@@ -1,4 +1,4 @@
-import shell from 'shelljs';
+const shell = require('shelljs');
 
 const sequelize = {
   drop: 'npx sequelize-cli db:drop',
@@ -9,8 +9,8 @@ const sequelize = {
 
 const resetDatabase = () => {
   shell.exec(
-    [sequelize.drop, sequelize.create, sequelize.migrate, sequelize.seed].join(' && '),
+    [sequelize.drop, sequelize.create, sequelize.migrate, sequelize.seed].join(' && ')
   );
 };
 
-export default resetDatabase;
+module.exports = resetDatabase;

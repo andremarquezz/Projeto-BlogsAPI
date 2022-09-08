@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../../api');
 const allCategories = require('../assets/allCategories.json');
 const jwt = require('jsonwebtoken');
-import resetDatabase from './assets/resetDatabase';
+const resetDatabase = require('../assets/resetDataBase');
 
 describe('Testes no endpoint < /categories > ', () => {
   const jwtSpy = jest.spyOn(jwt, 'verify');
