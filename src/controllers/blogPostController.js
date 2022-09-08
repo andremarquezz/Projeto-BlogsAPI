@@ -31,7 +31,9 @@ const blogPostController = {
     const { title, content } = req.body;
     const { id } = req.params;
     const { email } = res.locals;
-    const editedPost = await blogPostService.editBlogPost({ title, content, id, email });
+    const editedPost = await blogPostService.editBlogPost({
+      title, content, id, email,
+    });
     return res.status(200).json(editedPost);
   },
   delBlogPost: async (req, res) => {

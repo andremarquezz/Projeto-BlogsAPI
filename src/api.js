@@ -15,6 +15,7 @@ app.use('/categories', routesCategories);
 app.use('/post', routesBlogPosts);
 
 app.use((err, _req, res, _next) =>
-  res.status(err.code || 500).json({ message: `${err.message}` }));
+  res.status(err.code || 500).json({ message: `${err.message}` })
+);
 
 module.exports = app;

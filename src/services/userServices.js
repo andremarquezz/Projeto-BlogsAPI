@@ -3,8 +3,12 @@ const { ErrorNotFound } = require('../errors/ErrorNotFound');
 const blogPostService = require('./blogPostService');
 
 const userServices = {
-  addUser: async ({ displayName, email, password, image }) => {
-    await User.create({ displayName, email, password, image });
+  addUser: async ({
+    displayName, email, password, image,
+  }) => {
+    await User.create({
+      displayName, email, password, image,
+    });
     return true;
   },
   getAll: async () => {
