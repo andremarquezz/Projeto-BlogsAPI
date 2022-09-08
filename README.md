@@ -233,6 +233,16 @@ npm install
   ```sh
     npm run dev
   ```
+  
+    - Rodar os testes:
+  ```sh
+    npm test
+  ```
+  
+   - Rodar coverage para ver a cobertura dos testes:
+  ```sh
+    npm run test:coverage
+  ```
 
   <br />
 </details>
