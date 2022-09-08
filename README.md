@@ -234,12 +234,12 @@ npm install
     npm run dev
   ```
   
-    - Rodar os testes:
+  - Rodar os testes:
   ```sh
     npm test
   ```
   
-   - Rodar coverage para ver a cobertura dos testes:
+  - Rodar coverage para ver a cobertura dos testes:
   ```sh
     npm run test:coverage
   ```
