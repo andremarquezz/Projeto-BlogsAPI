@@ -36,5 +36,15 @@ describe('Testes no endpoint < /categories > ', () => {
         name: 'Batattinhas',
       });
     });
+    it('Testa se recebe um code 400 se não passar o nome para adicionar uma nova categoria', async () => {
+      const response = await request(app)
+        .post('/categories')
+        .set({ authorization: token });
+
+      expect(response.status).toBe(400);
+      expect(response.body).toEqual({
+        message: '"name" is required',
+      });
+    });
   });
 });

@@ -104,14 +104,6 @@ describe('Testes no endpoint < /user >', () => {
       expect(response.status).toBe(200);
       expect(response.body).toEqual(allUser[0]);
     });
-    it('Testa se é possivel deletar o propio usuario pelo token', async () => {
-      const mockServicesDelete = jest.spyOn(userServices, 'deleteUser');
-      mockServicesDelete.mockReturnValue(true);
-      const response = await request(app)
-        .delete('/user/me')
-        .set({ authorization: token });
-      expect(response.status).toBe(204);
-    });
     describe('Testa tratamento de erros no metodo < GET >', () => {
       it('Testa se não passar um token retorna code 401 e uma messagem de erro ', async () => {
         const response = await request(app).get('/user');
@@ -124,6 +116,18 @@ describe('Testes no endpoint < /user >', () => {
           .set({ authorization: token });
         expect(response.status).toBe(404);
         expect(response.body).toEqual({ message: 'User does not exist' });
+      });
+    });
+    describe('Testes em /user no metodo < DELETE >', () => {
+      it('Testa se é possivel deletar o propio usuario pelo token', async () => {
+        const response = await request(app)
+          .delete('/user/me')
+          .set({ authorization: token });
+        expect(response.status).toBe(204);
+      });
+      it('Testa se é possivel deletar um usuario com sucesso', async () => {
+        const deleteUser = await userServices.deleteUser('MichaelSchumacher@gmail.com');
+        expect(deleteUser).toBe(true);
       });
     });
   });
